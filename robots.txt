@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://recargapremium.com/sitemap.xml
+Sitemap: https://www.recargapremium.com/sitemap.xml

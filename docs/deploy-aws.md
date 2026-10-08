@@ -49,6 +49,7 @@ Anexe à role esta policy de menor privilégio (arquivo [aws-deploy-permissions.
       "Action": ["s3:PutObject"],
       "Resource": [
         "arn:aws:s3:::recargapremium-site/index.html",
+        "arn:aws:s3:::recargapremium-site/img/*",
         "arn:aws:s3:::recargapremium-site/robots.txt",
         "arn:aws:s3:::recargapremium-site/sitemap.xml",
         "arn:aws:s3:::recargapremium-site/hero-eletroposto.webp",

@@ -50,7 +50,7 @@ Priorizar:
 
 Site estático de página única, sem framework nem backend:
 
-- `index.html` (HTML, CSS e JS inline), `hero-eletroposto.webp`, `logo-recarga-premium.webp`;
+- `index.html` (HTML, CSS e JS inline), `hero-eletroposto.webp`, `logo-recarga-premium.webp` e fotos em `img/` (hospedadas no próprio bucket, por causa da CSP);
 - `robots.txt` e `sitemap.xml` para SEO;
 - hospedagem em **S3 + CloudFront**, publicação automática via GitHub Actions + AWS OIDC (ver [docs/deploy-aws.md](docs/deploy-aws.md));
 - `scripts/validate.py` valida âncoras, arquivos locais, `alt` das imagens, JSON-LD e sitemap; roda em PRs/branches (`ci.yml`) e antes de cada deploy;

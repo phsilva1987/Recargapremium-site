@@ -8,6 +8,7 @@ on:
       - 'logo-recarga-premium.webp'
       - 'robots.txt'
       - 'sitemap.xml'
+      - 'img/**'
       - 'scripts/validate.py'
       - 'hero-eletroposto.webp'
       - '.github/workflows/deploy-s3-cloudfront.yml'
@@ -68,6 +69,13 @@ jobs:
           aws s3 cp hero-eletroposto.webp "s3://$S3_BUCKET/hero-eletroposto.webp" --content-type "image/webp" --cache-control "public,max-age=3600"
           aws s3 cp logo-recarga-premium.webp "s3://$S3_BUCKET/logo-recarga-premium.webp" --content-type "image/webp" --cache-control "public,max-age=3600"
 
+      - name: Publicar fotos (img/)
+        run: |
+          set -euo pipefail
+          for f in img/*.webp; do
+            aws s3 cp "$f" "s3://$S3_BUCKET/$f" --content-type "image/webp" --cache-control "public,max-age=86400"
+          done
+
       - name: Publicar index.html
         run: |
           set -euo pipefail
@@ -84,7 +92,7 @@ jobs:
           set -euo pipefail
           aws cloudfront create-invalidation \
             --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
-            --paths "/" "/index.html" "/robots.txt" "/sitemap.xml" "/hero-eletroposto.webp" "/logo-recarga-premium.webp" \
+            --paths "/" "/index.html" "/img/*" "/robots.txt" "/sitemap.xml" "/hero-eletroposto.webp" "/logo-recarga-premium.webp" \
             --query 'Invalidation.{Id:Id,Status:Status}' --output table
 
       - name: Resumo

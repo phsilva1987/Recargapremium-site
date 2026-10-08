@@ -13,10 +13,11 @@ class P(HTMLParser):
     def __init__(self):
         super().__init__()
         self.ids, self.refs, self.local, self.ld, self._ld, self.imgs = set(), [], [], [], False, []
+        self.blocks = []
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if "id" in a: self.ids.add(a["id"])
-        if tag == "script" and a.get("type") == "application/ld+json": self._ld = True
+        if tag == "script" and a.get("type") == "application/ld+json": self._ld = True; self.blocks.append("")
         if tag == "img": self.imgs.append(a)
         for k in ("href", "src"):
             v = a.get(k)
@@ -26,7 +27,7 @@ class P(HTMLParser):
     def handle_endtag(self, tag):
         if tag == "script": self._ld = False
     def handle_data(self, d):
-        if self._ld: self.ld.append(d)
+        if self._ld: self.blocks[-1] += d
 
 p = P(); p.feed(html)
 for r in p.refs:
@@ -35,8 +36,10 @@ for f in p.local:
     if not os.path.exists(os.path.join(ROOT, f.split("?")[0])): errors.append(f"arquivo local ausente: {f}")
 for img in p.imgs:
     if "alt" not in img: errors.append(f"<img> sem alt: {img.get('src')}")
-try: json.loads("".join(p.ld))
-except Exception as e: errors.append(f"JSON-LD inválido: {e}")
+if not p.blocks: errors.append("sem JSON-LD")
+for b in p.blocks:
+    try: json.loads(b)
+    except Exception as e: errors.append(f"JSON-LD inválido: {e}")
 # IDs de tracking placeholder só podem existir dentro de comentário HTML
 visible = re.sub(r"<!--.*?-->", "", html, flags=re.S)
 if re.search(r"G-XXXXXXXXXX|XXXXXXXXXXXXXXX", visible): errors.append("ID de analytics placeholder fora de comentário")
