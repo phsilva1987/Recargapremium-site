@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "UploadSiteFiles",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::recargapremium-site/index.html",
+        "arn:aws:s3:::recargapremium-site/hero-eletroposto.webp",
+        "arn:aws:s3:::recargapremium-site/logo-recarga-premium.webp"
+      ]
+    },
+    {
+      "Sid": "InvalidateCloudFront",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateInvalidation"
+      ],
+      "Resource": "arn:aws:cloudfront::316356488279:distribution/E14L95QZL3U5IN"
+    }
+  ]
+}
