@@ -48,9 +48,14 @@ Priorizar:
 
 ## 7. Arquitetura técnica
 
-O repositório ainda não contém a implementação oficial. Não definir ou trocar stack antes da entrada/análise do código real.
+Site estático de página única, sem framework nem backend:
 
-O site já foi trabalhado com publicação web e infraestrutura envolvendo CloudFront/ACM em contexto anterior; confirmar a configuração real antes de documentá-la como arquitetura ativa.
+- `index.html` (HTML, CSS e JS inline), `hero-eletroposto.webp`, `logo-recarga-premium.webp`;
+- `robots.txt` e `sitemap.xml` para SEO;
+- hospedagem em **S3 + CloudFront**, publicação automática via GitHub Actions + AWS OIDC (ver [docs/deploy-aws.md](docs/deploy-aws.md));
+- `scripts/validate.py` valida âncoras, arquivos locais, `alt` das imagens, JSON-LD e sitemap; roda em PRs/branches (`ci.yml`) e antes de cada deploy;
+- formulário de contato monta a mensagem no navegador e abre o WhatsApp (sem servidor); CEP via ViaCEP;
+- GA4 e Meta Pixel estão **desativados** de propósito (coerência com o texto de LGPD); ver `LEIA-ME.txt`.
 
 ## 8. Segurança
 
@@ -72,17 +77,11 @@ O site já foi trabalhado com publicação web e infraestrutura envolvendo Cloud
 
 ## 10. Status atual
 
-Repositório preparado para receber a implementação oficial do site.
+Site implementado e publicado. Pendências conhecidas:
 
-### A validar após entrada do código
-
-- stack atual;
-- assets oficiais;
-- formulários;
-- integração WhatsApp;
-- analytics/tracking;
-- domínio/deploy;
-- infraestrutura ativa.
+- fotos reais dos projetos na seção de aplicações (hoje cenários ilustrativos);
+- aplicar a Response Headers Policy de segurança no CloudFront (`docs/cloudfront-security-headers.json`);
+- decidir sobre analytics/pixel (exige atualizar o texto de LGPD e banner de consentimento).
 
 ---
 

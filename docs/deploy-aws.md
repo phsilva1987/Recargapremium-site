@@ -1,6 +1,6 @@
 # Publicação automática — Recarga Premium
 
-Este projeto é um site estático hospedado no **S3** e distribuído via **CloudFront**. O workflow `.github/workflows/deploy-s3-cloudfront.yml` faz upload apenas dos três arquivos de produção e solicita a invalidação do cache. Não usa `s3 sync --delete`, não envia README, nem remove arquivos adicionais existentes no bucket.
+Este projeto é um site estático hospedado no **S3** e distribuído via **CloudFront**. O workflow `.github/workflows/deploy-s3-cloudfront.yml` faz upload apenas dos cinco arquivos de produção (`index.html`, `robots.txt`, `sitemap.xml` e as duas imagens) e solicita a invalidação do cache. Não usa `s3 sync --delete`, não envia README, nem remove arquivos adicionais existentes no bucket.
 
 ## 1. Criar provedor OIDC (uma vez, caso não exista)
 
@@ -49,6 +49,8 @@ Anexe à role esta policy de menor privilégio (arquivo [aws-deploy-permissions.
       "Action": ["s3:PutObject"],
       "Resource": [
         "arn:aws:s3:::recargapremium-site/index.html",
+        "arn:aws:s3:::recargapremium-site/robots.txt",
+        "arn:aws:s3:::recargapremium-site/sitemap.xml",
         "arn:aws:s3:::recargapremium-site/hero-eletroposto.webp",
         "arn:aws:s3:::recargapremium-site/logo-recarga-premium.webp"
       ]
@@ -115,3 +117,16 @@ Se o OIDC provider não existir, crie-o no Console. Se a role já existir, não 
 6. Para rollback, reverta o commit ou restaure uma versão conhecida do `index.html` na `main` e rode novamente o workflow.
 
 **Cuidado:** o primeiro deploy depois de ativado substituirá o `index.html` no S3 pela versão da `main`. Não faça merge até confirmar o Environment, a role e o fluxo de homologação.
+
+## 6. Headers de segurança no CloudFront
+
+O arquivo [cloudfront-security-headers.json](./cloudfront-security-headers.json) define uma Response Headers Policy (HSTS, nosniff, referrer, frame, CSP e Permissions-Policy). Aplicação (perfil administrativo, uma única vez):
+
+```bash
+aws cloudfront create-response-headers-policy --response-headers-policy-config file://docs/cloudfront-security-headers.json
+aws cloudfront get-distribution-config --id E14L95QZL3U5IN > dist.json   # anote o ETag
+# edite DefaultCacheBehavior.ResponseHeadersPolicyId em dist.json com o Id criado e então:
+aws cloudfront update-distribution --id E14L95QZL3U5IN --if-match <ETag> --distribution-config file://dist-config.json
+```
+
+Teste a CSP no navegador (console sem violações) antes de manter em produção. A CSP usa `'unsafe-inline'` porque o site tem CSS/JS inline.
