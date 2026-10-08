@@ -95,6 +95,10 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
 @media(max-width:820px){.hero,.hero-inner{min-height:620px}.hero-copy{width:100%;padding:48px 0 94px}.hero h1{font-size:clamp(42px,7vw,56px)}.application-grid{grid-template-columns:1fr 1fr}.solution-card{min-height:265px}.main-nav a{min-height:44px;display:flex;align-items:center}.main-nav .nav-cta{justify-content:center}}
 @media(max-width:560px){.hero,.hero-inner{min-height:0}.hero-copy{padding:64px 0 92px}.hero h1{font-size:clamp(38px,10vw,46px);line-height:1.08}.hero-copy>p{font-size:16px}.hero-points{grid-template-columns:1fr;gap:8px}.hero-points div{min-height:48px;padding:8px 12px}.hero-actions{gap:8px;margin-top:24px}.hero-actions .btn-primary{width:100%}.hero-actions .btn-ghost{padding:8px 0}.project-badge{right:14px;bottom:10px}.application-grid{grid-template-columns:1fr}.application-card{padding:22px;gap:14px}.solution-card{min-height:0;padding:22px}.solution-link{padding-top:16px}.section-heading h2,.process-head h2,.norms-copy h2,.contact-copy h2{font-size:clamp(29px,8.5vw,36px)}.contact-section{padding:44px 0}.contact-card{min-width:0}.contact-card strong{overflow-wrap:anywhere}}
 
+.form-wrap{scroll-margin-top:108px}
+.contact-section:has(.form-wrap[hidden]){padding:42px 0}
+@media(max-width:820px){.form-wrap{scroll-margin-top:94px}}
+@media(max-width:560px){.contact-section:has(.form-wrap[hidden]){padding:32px 0}}
 </style>
 </head>
 <body>
@@ -111,7 +115,7 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
         <a href="#projetos">Aplicações</a>
         <a href="#carregadores">Carregadores</a>
         <a href="#contato">Contato</a>
-        <a class="nav-cta" href="#contato"><span>◉</span> Solicitar projeto</a>
+        <a class="nav-cta js-open-lead-form" href="#contato"><span>◉</span> Solicitar projeto</a>
       </nav>
     </div>
   </header>
@@ -127,7 +131,7 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
           <p>Projetamos e implantamos soluções de recarga para condomínios, empresas e estabelecimentos comerciais, do planejamento à primeira recarga.</p>
           <div class="hero-points" aria-label="Diferenciais"><div><span aria-hidden="true">⚡</span><b>Projeto sob medida</b></div><div><span aria-hidden="true">✓</span><b>Segurança técnica</b></div><div><span aria-hidden="true">◎</span><b>Instalação e suporte</b></div></div>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#contato">Solicitar orçamento <b>→</b></a>
+            <a class="btn btn-primary js-open-lead-form" href="#contato">Solicitar orçamento <b>→</b></a>
             <a class="btn btn-ghost" href="#solucoes"><span aria-hidden="true">→</span> Conheça as soluções</a>
           </div>
         </div>
@@ -300,7 +304,21 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.conta
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const formWrap=document.getElementById('form-wrap'),openForm=document.getElementById('open-form');
-openForm.addEventListener('click',()=>{formWrap.hidden=!formWrap.hidden;openForm.setAttribute('aria-expanded',String(!formWrap.hidden));if(!formWrap.hidden){formWrap.scrollIntoView({behavior:'smooth',block:'nearest'});document.getElementById('nome').focus({preventScroll:true})}});
+function setLeadFormOpen(shouldOpen){
+  formWrap.hidden=!shouldOpen;
+  openForm.setAttribute('aria-expanded',String(shouldOpen));
+  if(shouldOpen){
+    formWrap.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    document.getElementById('nome').focus({preventScroll:true});
+  }
+}
+openForm.addEventListener('click',()=>setLeadFormOpen(formWrap.hidden));
+document.querySelectorAll('.js-open-lead-form').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  nav.classList.remove('open');
+  toggle.setAttribute('aria-expanded','false');
+  setLeadFormOpen(true);
+}));
 const cepInput=document.getElementById('cep'),ruaInput=document.getElementById('rua'),bairroInput=document.getElementById('bairro'),cidadeInput=document.getElementById('cidade'),estadoInput=document.getElementById('estado'),enderecoResumo=document.getElementById('endereco-resumo'),enderecoManual=document.getElementById('endereco-manual'),toggleManualBtn=document.getElementById('toggle-manual');
 function mostrarManual(foco){
   enderecoResumo.hidden=true;
