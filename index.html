@@ -330,6 +330,9 @@ document.querySelectorAll('.js-open-lead-form').forEach(link=>link.addEventListe
   toggle.setAttribute('aria-expanded','false');
   setLeadFormOpen(true);
 }));
+// Número único do WhatsApp comercial: os links estáticos (fallback sem JS) são sincronizados com ele.
+const WHATSAPP_NUMBER='5511983682443';
+document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>{a.href=a.href.replace(/wa\.me\/\d+/,'wa.me/'+WHATSAPP_NUMBER)});
 const cepInput=document.getElementById('cep'),ruaInput=document.getElementById('rua'),bairroInput=document.getElementById('bairro'),cidadeInput=document.getElementById('cidade'),estadoInput=document.getElementById('estado'),enderecoResumo=document.getElementById('endereco-resumo'),enderecoManual=document.getElementById('endereco-manual'),toggleManualBtn=document.getElementById('toggle-manual');
 function mostrarManual(foco){
   enderecoResumo.hidden=true;
@@ -339,11 +342,15 @@ function mostrarManual(foco){
 }
 function mostrarResumo(){
   const partes=[ruaInput.value,bairroInput.value,[cidadeInput.value,estadoInput.value].filter(Boolean).join('/')].filter(Boolean);
-  enderecoResumo.innerHTML=`📍 ${partes.join(' — ')} <button type="button" id="editar-endereco">Editar</button>`;
+  enderecoResumo.textContent='';
+  enderecoResumo.append('📍 '+partes.join(' — ')+' ');
+  const btnEditar=document.createElement('button');
+  btnEditar.type='button';btnEditar.id='editar-endereco';btnEditar.textContent='Editar';
+  enderecoResumo.append(btnEditar);
   enderecoResumo.hidden=false;
   enderecoManual.hidden=true;
   toggleManualBtn.hidden=true;
-  document.getElementById('editar-endereco').addEventListener('click',()=>mostrarManual(true));
+  btnEditar.addEventListener('click',()=>mostrarManual(true));
 }
 cepInput.addEventListener('input',()=>{
   let v=cepInput.value.replace(/\D/g,'').slice(0,8);
@@ -379,7 +386,7 @@ document.getElementById('lead-form').addEventListener('submit',e=>{
   const text=`Olá, Recarga Premium! Gostaria de solicitar uma avaliação para um projeto de eletroposto.\n\n*Nome:* ${val('nome')}\n*Empresa/Condomínio:* ${val('empresa')||'Não informado'}\n*Telefone:* ${val('telefone')}\n*Endereço:* ${endereco}\n*Companhia elétrica:* ${val('concessionaria')||'Não informado'}\n*Tipo de projeto:* ${val('tipo')}\n*Detalhes:* ${val('mensagem')||'Não informado'}`;
   if(typeof gtag==='function')gtag('event','generate_lead');
   if(typeof fbq==='function')fbq('track','Lead');
-  window.open(`https://wa.me/5511983682443?text=${encodeURIComponent(text)}`,'_blank','noopener');
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,'_blank','noopener');
 });
 document.getElementById('year').textContent=new Date().getFullYear();
 

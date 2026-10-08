@@ -6,6 +6,9 @@ on:
     paths:
       - 'index.html'
       - 'logo-recarga-premium.webp'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - 'scripts/validate.py'
       - 'hero-eletroposto.webp'
       - '.github/workflows/deploy-s3-cloudfront.yml'
   workflow_dispatch:
@@ -38,19 +41,22 @@ jobs:
           test -n "$CLOUDFRONT_DISTRIBUTION_ID" || { echo "::error::Configure CLOUDFRONT_DISTRIBUTION_ID nas variables do repositorio/ambiente."; exit 1; }
 
       - name: Obter codigo do repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
 
       - name: Validar arquivos de producao
         run: |
           set -euo pipefail
-          for file in index.html hero-eletroposto.webp logo-recarga-premium.webp; do
+          for file in index.html robots.txt sitemap.xml hero-eletroposto.webp logo-recarga-premium.webp; do
             test -s "$file" || { echo "::error::Arquivo ausente ou vazio: $file"; exit 1; }
           done
 
+      - name: Validar HTML, links, JSON-LD e sitemap
+        run: python3 scripts/validate.py
+
       - name: Autenticar AWS via OIDC (sem access keys)
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
@@ -67,12 +73,18 @@ jobs:
           set -euo pipefail
           aws s3 cp index.html "s3://$S3_BUCKET/index.html" --content-type "text/html; charset=utf-8" --cache-control "no-cache, must-revalidate"
 
+      - name: Publicar robots.txt e sitemap.xml
+        run: |
+          set -euo pipefail
+          aws s3 cp robots.txt "s3://$S3_BUCKET/robots.txt" --content-type "text/plain; charset=utf-8" --cache-control "public,max-age=3600"
+          aws s3 cp sitemap.xml "s3://$S3_BUCKET/sitemap.xml" --content-type "application/xml; charset=utf-8" --cache-control "public,max-age=3600"
+
       - name: Invalidar cache CloudFront
         run: |
           set -euo pipefail
           aws cloudfront create-invalidation \
             --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
-            --paths "/" "/index.html" "/hero-eletroposto.webp" "/logo-recarga-premium.webp" \
+            --paths "/" "/index.html" "/robots.txt" "/sitemap.xml" "/hero-eletroposto.webp" "/logo-recarga-premium.webp" \
             --query 'Invalidation.{Id:Id,Status:Status}' --output table
 
       - name: Resumo
