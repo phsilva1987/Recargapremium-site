@@ -1,0 +1,57 @@
+RECARGA PREMIUM — PACOTE DO SITE
+==================================
+
+ARQUIVOS
+--------
+index.html                    -> a página, pronta pra subir
+logo-recarga-premium.webp     -> logo (usado no header e no footer)
+hero-eletroposto.webp         -> foto do hero
+
+Suba os 3 arquivos juntos, na mesma pasta, no bucket S3 (raiz ou
+na pasta que aponta o CloudFront). Não precisa mexer em mais nada
+pro site funcionar — mas veja as pendências abaixo.
+
+
+PENDÊNCIAS (marcadas no código com comentário "TODO" ou "SUBSTITUIR")
+-----------------------------------------------------------------
+1. FOTOS DOS PROJETOS
+   Seção "Projetos" (#projetos) está com 4 cards de placeholder
+   (fundo listrado, texto "Foto do projeto aqui"). Quando tiver
+   fotos reais de projetos entregues, troque o <div class="ph">...
+   por <img src="nome-da-foto.webp" ...> e preencha nome do
+   cliente/cidade em cada <figcaption>.
+
+2. GOOGLE ANALYTICS E META PIXEL
+   Estão no <head>, mas DESATIVADOS (dentro de um comentário
+   <!-- -->), porque o aviso de LGPD do rodapé diz que o site não
+   usa cookies de analytics. Pra ativar:
+     a) troque G-XXXXXXXXXX pelo Measurement ID real do GA4
+     b) troque XXXXXXXXXXXXXXX pelo ID real do Meta Pixel
+     c) remova os comentários <!-- -->
+     d) atualize o parágrafo "Cookies" em #privacidade pra refletir
+        que agora tem rastreamento
+
+3. INSTAGRAM
+   Já corrigido para @recargapremiumoficial. Se trocar o @ de novo
+   no futuro, tem 2 lugares pra atualizar: o ícone no rodapé e o
+   "sameAs" dentro do bloco de dados estruturados (JSON-LD) no <head>.
+
+4. DOMÍNIO
+   As tags og:image, og:url e o link canonical estão fixas em
+   https://recargapremium.com/ — se o domínio final for outro,
+   precisa trocar em 4 lugares no <head>.
+
+
+O QUE JÁ ESTÁ PRONTO E FUNCIONANDO
+-----------------------------------
+- Imagens otimizadas (WebP externo, não mais base64) — página caiu
+  de 4,7MB para ~46KB de HTML + ~220KB de imagem
+- Formulário com endereço completo e autopreenchimento por CEP
+  (usa a API pública ViaCEP)
+- Campo de companhia elétrica (Enel, CPFL, Cemig, Copel etc.)
+- Aviso de Privacidade/LGPD completo, com seção própria (#privacidade)
+- Menu compactado (4 itens: Soluções, Projetos, Carregadores, Contato)
+- SEO: canonical, og:image, Twitter Card, dados estruturados
+  (Schema.org LocalBusiness)
+- Bug corrigido: contador de kW nas abas de carregador não atualizava
+- Acessibilidade: tecla Esc fecha o menu mobile
