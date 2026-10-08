@@ -1,0 +1,83 @@
+name: Publicar site Recarga Premium (S3 + CloudFront)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'logo-recarga-premium.webp'
+      - 'hero-eletroposto.webp'
+      - '.github/workflows/deploy-s3-cloudfront.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: recarga-premium-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publicar website
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    env:
+      S3_BUCKET: recargapremium-site
+      AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+    steps:
+      - name: Verificar configuracao antes do deploy
+        run: |
+          set -euo pipefail
+          test -n "$AWS_ROLE_ARN" || { echo "::error::Configure AWS_ROLE_ARN nas variables do repositorio/ambiente."; exit 1; }
+          test -n "$AWS_REGION" || { echo "::error::Configure AWS_REGION nas variables do repositorio/ambiente."; exit 1; }
+          test -n "$CLOUDFRONT_DISTRIBUTION_ID" || { echo "::error::Configure CLOUDFRONT_DISTRIBUTION_ID nas variables do repositorio/ambiente."; exit 1; }
+
+      - name: Obter codigo do repositorio
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Validar arquivos de producao
+        run: |
+          set -euo pipefail
+          for file in index.html hero-eletroposto.webp logo-recarga-premium.webp; do
+            test -s "$file" || { echo "::error::Arquivo ausente ou vazio: $file"; exit 1; }
+          done
+
+      - name: Autenticar AWS via OIDC (sem access keys)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: github-recargapremium-deploy
+
+      - name: Publicar imagens antes do HTML
+        run: |
+          set -euo pipefail
+          aws s3 cp hero-eletroposto.webp "s3://$S3_BUCKET/hero-eletroposto.webp" --content-type "image/webp" --cache-control "public,max-age=3600"
+          aws s3 cp logo-recarga-premium.webp "s3://$S3_BUCKET/logo-recarga-premium.webp" --content-type "image/webp" --cache-control "public,max-age=3600"
+
+      - name: Publicar index.html
+        run: |
+          set -euo pipefail
+          aws s3 cp index.html "s3://$S3_BUCKET/index.html" --content-type "text/html; charset=utf-8" --cache-control "no-cache, must-revalidate"
+
+      - name: Invalidar cache CloudFront
+        run: |
+          set -euo pipefail
+          aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+            --paths "/" "/index.html" "/hero-eletroposto.webp" "/logo-recarga-premium.webp" \
+            --query 'Invalidation.{Id:Id,Status:Status}' --output table
+
+      - name: Resumo
+        run: |
+          echo "### Recarga Premium — Deploy enviado" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Bucket: \`$S3_BUCKET\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit: \`$GITHUB_SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- CloudFront: invalidacao solicitada (conclusao assincrona)" >> "$GITHUB_STEP_SUMMARY"
