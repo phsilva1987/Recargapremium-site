@@ -99,6 +99,17 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
 .contact-section:has(.form-wrap[hidden]){padding:42px 0}
 @media(max-width:820px){.form-wrap{scroll-margin-top:94px}}
 @media(max-width:560px){.contact-section:has(.form-wrap[hidden]){padding:32px 0}}
+
+/* Imagens editoriais compactas, mantendo grids e interacoes existentes */
+.visual-heading{display:grid;grid-template-columns:170px minmax(0,1fr);align-items:center;gap:22px;min-width:0}
+.visual-heading p{line-height:1.65}
+.editorial-photo{margin:0;min-width:0}
+.editorial-photo img{display:block;width:100%;height:132px;object-fit:cover;border-radius:13px;background:#e8f0eb;box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.editorial-photo figcaption{font-size:10px;line-height:1.35;margin-top:5px;color:var(--muted)}
+.chargers-section .editorial-photo figcaption{color:#b2caba}
+@media(max-width:1050px){.visual-heading{grid-template-columns:135px minmax(0,1fr);gap:16px}.editorial-photo img{height:112px}}
+@media(max-width:820px){.visual-heading{grid-template-columns:150px minmax(0,1fr);gap:18px}}
+@media(max-width:560px){.visual-heading{grid-template-columns:110px minmax(0,1fr);gap:13px}.editorial-photo img{height:110px}.editorial-photo figcaption{font-size:9px}.visual-heading p{font-size:13px;line-height:1.55}}
 </style>
 </head>
 <body>
@@ -152,7 +163,7 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
       <div class="container">
         <div class="section-heading reveal">
           <div><span class="kicker">SOLUÇÕES</span><h2>Um projeto para cada necessidade.</h2></div>
-          <div class="heading-copy"><p>Dimensionamos a solução a partir do uso real, da infraestrutura disponível e da possibilidade de expansão.</p></div>
+          <div class="heading-copy visual-heading"><figure class="editorial-photo"><img src="https://images.unsplash.com/photo-1772256761611-6adbee864260?auto=format&amp;fit=crop&amp;w=640&amp;q=76" alt="Estação de recarga de veículo elétrico em área de estacionamento" loading="lazy" decoding="async" width="320" height="250"><figcaption>Imagem ilustrativa · Unsplash / Ingo Zöll</figcaption></figure><p>Dimensionamos a solução a partir do uso real, da infraestrutura disponível e da possibilidade de expansão.</p></div>
         </div>
         <div class="solution-grid">
           <article class="solution-card reveal"><span aria-hidden="true">⌂</span><h3>Condomínios</h3><p>Recarga individual ou compartilhada, medição, gestão de carga e expansão planejada.</p><a class="solution-link" href="https://wa.me/5511983682443?text=Ol%C3%A1!%20Gostaria%20de%20avaliar%20carregadores%20para%20condom%C3%ADnio." target="_blank" rel="noopener noreferrer">Avaliar solução <span aria-hidden="true">→</span></a></article>
@@ -165,7 +176,7 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
 
     <section class="section projects-section" id="projetos">
       <div class="container">
-        <div class="section-heading reveal"><div><span class="kicker">APLICAÇÕES</span><h2>Onde a recarga faz a diferença.</h2></div><div class="heading-copy"><p>Conheça possibilidades de implantação para diferentes perfis de uso. Os cenários abaixo são exemplos ilustrativos, não obras entregues.</p></div></div>
+        <div class="section-heading reveal"><div><span class="kicker">APLICAÇÕES</span><h2>Onde a recarga faz a diferença.</h2></div><div class="heading-copy visual-heading"><figure class="editorial-photo"><img src="https://images.unsplash.com/photo-1774135447977-219ccdf62264?auto=format&amp;fit=crop&amp;w=640&amp;q=76" alt="Pontos de recarga de veículos elétricos em estacionamento" loading="lazy" decoding="async" width="320" height="250"><figcaption>Imagem ilustrativa · Unsplash / Phillip Flores</figcaption></figure><p>Conheça possibilidades de implantação para diferentes perfis de uso. Os cenários abaixo são exemplos ilustrativos, não obras entregues.</p></div></div>
         <div class="application-grid">
           <article class="application-card reveal"><span class="application-icon" aria-hidden="true">⌂</span><div><span class="application-tag">CENÁRIO ILUSTRATIVO</span><h3>Recarga compartilhada em condomínios</h3><p>Organize o acesso à recarga conforme a viabilidade técnica e as regras do empreendimento, sem exigir um carregador exclusivo por vaga.</p></div></article>
           <article class="application-card reveal"><span class="application-icon" aria-hidden="true">▣</span><div><span class="application-tag">CENÁRIO ILUSTRATIVO</span><h3>Eletroposto para comércio</h3><p>Ofereça recarga para clientes e visitantes de estacionamentos, mercados, hotéis e estabelecimentos comerciais.</p></div></article>
@@ -178,7 +189,7 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
       <div class="container">
         <div class="section-heading reveal">
           <div><span class="kicker">CARREGADORES</span><h2>Potência certa para o seu cenário.</h2></div>
-          <div class="heading-copy"><p>Mais potência nem sempre significa melhor projeto. Avaliamos veículo, tempo de permanência, demanda e infraestrutura elétrica.</p></div>
+          <div class="heading-copy visual-heading"><figure class="editorial-photo"><img src="https://images.unsplash.com/photo-1696835307664-bac3f44ff9a5?auto=format&amp;fit=crop&amp;w=640&amp;q=76" alt="Conector de recarga ligado a veículo elétrico" loading="lazy" decoding="async" width="320" height="250"><figcaption>Imagem ilustrativa · Unsplash / Marek Studzinski</figcaption></figure><p>Mais potência nem sempre significa melhor projeto. Avaliamos veículo, tempo de permanência, demanda e infraestrutura elétrica.</p></div>
         </div>
         <div class="charger-tabs reveal" role="tablist" aria-label="Tipos de carregadores">
           <button class="tab active" data-tab="ac7" role="tab" aria-selected="true">AC 7,4 kW</button>
