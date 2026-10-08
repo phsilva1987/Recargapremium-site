@@ -84,6 +84,17 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
 .consent{grid-template-columns:auto 1fr!important;align-items:start!important;gap:10px!important;font-weight:600!important;line-height:1.45}.consent input{width:18px!important;height:18px;margin-top:2px;accent-color:var(--green)}.consent a{text-decoration:underline;color:var(--green-dark)}.form-privacy-note{font-size:12px;color:var(--muted);margin:-4px 0 16px}.privacy-section{background:#f6faf7;border-top:1px solid var(--line);padding:26px 0}.privacy-box{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.privacy-box summary{list-style:none;cursor:pointer;padding:18px 22px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.privacy-box summary::-webkit-details-marker{display:none}.privacy-box summary span{color:var(--green);font-size:22px;transition:.2s}.privacy-box[open] summary span{transform:rotate(45deg)}.privacy-content{padding:0 22px 20px;color:#4f6257;font-size:14px}.privacy-content p{margin:0 0 12px}.privacy-content p:last-child{margin-bottom:0}.privacy-content a{color:var(--green-dark);text-decoration:underline}
 .footer-bottom a{text-decoration:underline}
 
+
+/* Fases 1 e 2 — melhorias incrementais UX/UI */
+.hero,.hero-inner{min-height:590px}.hero-copy{width:min(730px,70%)}.hero h1{font-size:clamp(46px,5.2vw,72px);line-height:1.03}.hero-copy>p{max-width:620px;line-height:1.6}
+.hero-points{grid-template-columns:repeat(3,minmax(0,1fr));max-width:570px}.hero-points div{min-height:78px;flex-direction:row;gap:10px;padding:12px 14px;justify-content:flex-start;text-align:left}.hero-points span{font-size:23px;flex:0 0 auto}.hero-points b{font-size:13px;line-height:1.3;margin:0}
+.solution-card{display:flex;flex-direction:column;min-height:278px}.solution-card>span{border-radius:12px;font-size:23px}.solution-card h3{font-size:21px;margin:18px 0 9px}.solution-card p{font-size:14px;line-height:1.6}.solution-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:20px;color:var(--green-dark);font-size:14px;font-weight:800}.solution-link:hover{text-decoration:underline}
+.application-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.application-card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:26px;display:flex;flex-direction:column;gap:20px;box-shadow:0 12px 36px rgba(2,32,18,.055)}.application-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:#eaf8ee;color:var(--green-dark);font-size:28px}.application-tag{color:var(--green-dark);font-size:11px;letter-spacing:.09em;font-weight:800}.application-card h3{font-size:21px;line-height:1.25;margin:10px 0}.application-card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0}
+.contact-copy h2{line-height:1.08}.contact-copy p{line-height:1.7}.contact-card,.project-open{min-height:66px}:where(a,button,input,select,textarea):focus-visible{outline:3px solid #28b96a;outline-offset:3px}
+@media(max-width:1050px){.application-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-copy{width:min(700px,80%)}}
+@media(max-width:820px){.hero,.hero-inner{min-height:620px}.hero-copy{width:100%;padding:48px 0 94px}.hero h1{font-size:clamp(42px,7vw,56px)}.application-grid{grid-template-columns:1fr 1fr}.solution-card{min-height:265px}.main-nav a{min-height:44px;display:flex;align-items:center}.main-nav .nav-cta{justify-content:center}}
+@media(max-width:560px){.hero,.hero-inner{min-height:0}.hero-copy{padding:64px 0 92px}.hero h1{font-size:clamp(38px,10vw,46px);line-height:1.08}.hero-copy>p{font-size:16px}.hero-points{grid-template-columns:1fr;gap:8px}.hero-points div{min-height:48px;padding:8px 12px}.hero-actions{gap:8px;margin-top:24px}.hero-actions .btn-primary{width:100%}.hero-actions .btn-ghost{padding:8px 0}.project-badge{right:14px;bottom:10px}.application-grid{grid-template-columns:1fr}.application-card{padding:22px;gap:14px}.solution-card{min-height:0;padding:22px}.solution-link{padding-top:16px}.section-heading h2,.process-head h2,.norms-copy h2,.contact-copy h2{font-size:clamp(29px,8.5vw,36px)}.contact-section{padding:44px 0}.contact-card{min-width:0}.contact-card strong{overflow-wrap:anywhere}}
+
 </style>
 </head>
 <body>
@@ -97,7 +108,7 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
       <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
         <a href="#solucoes">Soluções</a>
-        <a href="#projetos">Projetos</a>
+        <a href="#projetos">Aplicações</a>
         <a href="#carregadores">Carregadores</a>
         <a href="#contato">Contato</a>
         <a class="nav-cta" href="#contato"><span>◉</span> Solicitar projeto</a>
@@ -112,17 +123,12 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
       <div class="container hero-inner">
         <div class="hero-copy reveal">
           <span class="eyebrow">SOLUÇÕES EM ELETROMOBILIDADE</span>
-          <h1>Eletroposto<br>do projeto à<br><strong>primeira recarga.</strong></h1>
-          <p>Soluções completas em infraestrutura para veículos elétricos, com engenharia, execução e acompanhamento técnico.</p>
-          <div class="hero-points">
-            <div><span>⚡</span><b>Projetos<br>personalizados</b></div>
-            <div><span>◎</span><b>Equipe<br>especializada</b></div>
-            <div><span>✓</span><b>Segurança e<br>conformidade</b></div>
-            <div><span>♧</span><b>Mobilidade<br>mais sustentável</b></div>
-          </div>
+          <h1>Energia para<br>mover o <strong>futuro.</strong></h1>
+          <p>Projetamos e implantamos soluções de recarga para condomínios, empresas e estabelecimentos comerciais, do planejamento à primeira recarga.</p>
+          <div class="hero-points" aria-label="Diferenciais"><div><span aria-hidden="true">⚡</span><b>Projeto sob medida</b></div><div><span aria-hidden="true">✓</span><b>Segurança técnica</b></div><div><span aria-hidden="true">◎</span><b>Instalação e suporte</b></div></div>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#contato">Solicitar um projeto <b>→</b></a>
-            <a class="btn btn-ghost" href="#quem-somos"><span>▷</span> Conheça a Recarga Premium</a>
+            <a class="btn btn-primary" href="#contato">Solicitar orçamento <b>→</b></a>
+            <a class="btn btn-ghost" href="#solucoes"><span aria-hidden="true">→</span> Conheça as soluções</a>
           </div>
         </div>
         <div class="project-badge">Imagem ilustrativa <small>conceito de eletroposto</small></div>
@@ -131,8 +137,8 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
 
     <section class="credibility" id="quem-somos">
       <div class="container credibility-grid">
-        <article><span>♛</span><div><strong>6 anos</strong><small>de experiência</small></div></article>
-        <article><span>⌁</span><div><strong>Equipe multidisciplinar</strong><small>Engenheiros Elétricos<br>Arquitetos<br>Empresa de Obras Civil</small></div></article>
+        <article><span>♛</span><div><strong>Planejamento técnico</strong><small>Dimensionamento para cada instalação</small></div></article>
+        <article><span>⌁</span><div><strong>Atuação integrada</strong><small>Engenharia, arquitetura e obras civis conforme a necessidade</small></div></article>
         <article><span>⚙</span><div><strong>Do projeto à operação</strong><small>Soluções completas e personalizadas</small></div></article>
         <article><span>♧</span><div><strong>Energia para um futuro melhor</strong><small>Mobilidade elétrica com planejamento</small></div></article>
       </div>
@@ -145,37 +151,21 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
           <div class="heading-copy"><p>Dimensionamos a solução a partir do uso real, da infraestrutura disponível e da possibilidade de expansão.</p></div>
         </div>
         <div class="solution-grid">
-          <article class="solution-card reveal"><span>01</span><h3>Condomínios</h3><p>Recarga individual ou compartilhada, medição, gestão de carga e planejamento para expansão.</p></article>
-          <article class="solution-card reveal"><span>02</span><h3>Empresas e frotas</h3><p>Infraestrutura para colaboradores, visitantes e veículos operacionais, com foco em disponibilidade e escala.</p></article>
-          <article class="solution-card reveal"><span>03</span><h3>Comércio e hospitalidade</h3><p>Carregamento como conveniência e diferencial para lojas, mercados, hotéis, restaurantes e estacionamentos.</p></article>
-          <article class="solution-card reveal"><span>04</span><h3>Projeto completo</h3><p>Vistoria, engenharia, arquitetura, obras civis, instalação, testes, comissionamento e documentação.</p></article>
+          <article class="solution-card reveal"><span aria-hidden="true">⌂</span><h3>Condomínios</h3><p>Recarga individual ou compartilhada, medição, gestão de carga e expansão planejada.</p><a class="solution-link" href="https://wa.me/5511983682443?text=Ol%C3%A1!%20Gostaria%20de%20avaliar%20carregadores%20para%20condom%C3%ADnio." target="_blank" rel="noopener noreferrer">Avaliar solução <span aria-hidden="true">→</span></a></article>
+          <article class="solution-card reveal"><span aria-hidden="true">⚙</span><h3>Empresas e frotas</h3><p>Infraestrutura para colaboradores, visitantes e veículos operacionais, conforme o perfil de utilização.</p><a class="solution-link" href="https://wa.me/5511983682443?text=Ol%C3%A1!%20Gostaria%20de%20avaliar%20carregadores%20para%20empresas%20e%20frotas." target="_blank" rel="noopener noreferrer">Avaliar solução <span aria-hidden="true">→</span></a></article>
+          <article class="solution-card reveal"><span aria-hidden="true">▣</span><h3>Comércio e hospitalidade</h3><p>Soluções para lojas, mercados, hotéis, restaurantes e estacionamentos que desejam oferecer recarga.</p><a class="solution-link" href="https://wa.me/5511983682443?text=Ol%C3%A1!%20Gostaria%20de%20avaliar%20um%20eletroposto%20comercial." target="_blank" rel="noopener noreferrer">Avaliar solução <span aria-hidden="true">→</span></a></article>
+          <article class="solution-card reveal"><span aria-hidden="true">✓</span><h3>Projeto completo</h3><p>Levantamento, engenharia, obras civis, instalação, testes e documentação técnica aplicável.</p><a class="solution-link" href="#processo" >Conheça as etapas <span aria-hidden="true">→</span></a></article>
         </div>
       </div>
     </section>
 
     <section class="section projects-section" id="projetos">
       <div class="container">
-        <div class="section-heading reveal">
-          <div><span class="kicker">PROJETOS</span><h2>Quem já confiou, já está carregando.</h2></div>
-          <div class="heading-copy"><p>Uma seleção de projetos entregues em condomínios, empresas e comércios. <!-- SUBSTITUIR: trocar pelas fotos reais dos projetos assim que estiverem disponíveis --></p></div>
-        </div>
-        <div class="project-grid">
-          <figure class="project-card reveal">
-            <div class="ph">Foto do projeto aqui<br>(condomínio residencial)</div>
-            <figcaption><strong>Condomínio [Nome]</strong><span>2 carregadores AC 7,4 kW · [Cidade/UF]</span></figcaption>
-          </figure>
-          <figure class="project-card reveal">
-            <div class="ph">Foto do projeto aqui<br>(frota empresarial)</div>
-            <figcaption><strong>Empresa [Nome]</strong><span>Frota corporativa · [Cidade/UF]</span></figcaption>
-          </figure>
-          <figure class="project-card reveal">
-            <div class="ph">Foto do projeto aqui<br>(comércio/hospitalidade)</div>
-            <figcaption><strong>[Nome do local]</strong><span>Carregador DC rápido · [Cidade/UF]</span></figcaption>
-          </figure>
-          <figure class="project-card reveal">
-            <div class="ph">Foto do projeto aqui<br>(eletroposto público)</div>
-            <figcaption><strong>[Nome do local]</strong><span>Projeto completo · [Cidade/UF]</span></figcaption>
-          </figure>
+        <div class="section-heading reveal"><div><span class="kicker">APLICAÇÕES</span><h2>Onde a recarga faz a diferença.</h2></div><div class="heading-copy"><p>Conheça possibilidades de implantação para diferentes perfis de uso. Os cenários abaixo são exemplos ilustrativos, não obras entregues.</p></div></div>
+        <div class="application-grid">
+          <article class="application-card reveal"><span class="application-icon" aria-hidden="true">⌂</span><div><span class="application-tag">CENÁRIO ILUSTRATIVO</span><h3>Recarga compartilhada em condomínios</h3><p>Organize o acesso à recarga conforme a viabilidade técnica e as regras do empreendimento, sem exigir um carregador exclusivo por vaga.</p></div></article>
+          <article class="application-card reveal"><span class="application-icon" aria-hidden="true">▣</span><div><span class="application-tag">CENÁRIO ILUSTRATIVO</span><h3>Eletroposto para comércio</h3><p>Ofereça recarga para clientes e visitantes de estacionamentos, mercados, hotéis e estabelecimentos comerciais.</p></div></article>
+          <article class="application-card reveal"><span class="application-icon" aria-hidden="true">⚡</span><div><span class="application-tag">CENÁRIO ILUSTRATIVO</span><h3>Infraestrutura para frotas</h3><p>Planeje potências e pontos de recarga de acordo com os veículos, a operação e o tempo disponível.</p></div></article>
         </div>
       </div>
     </section>
@@ -230,13 +220,13 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
 
     <section class="contact-section" id="contato">
       <div class="container contact-grid">
-        <div class="contact-copy reveal"><span class="kicker">VAMOS CONVERSAR?</span><h2>Solicite seu projeto<br>sem compromisso</h2><p>Nossa equipe está pronta para entender sua necessidade e apresentar a melhor solução para seu condomínio, empresa ou negócio.</p></div>
+        <div class="contact-copy reveal"><span class="kicker">VAMOS CONVERSAR?</span><h2>Seu projeto começa<br>com uma conversa.</h2><p>Explique sua necessidade pelo WhatsApp ou envie os detalhes técnicos para uma avaliação inicial. Sem compromisso.</p></div>
         <div class="contact-actions reveal">
           <div class="contact-pair">
             <a class="contact-card whatsapp" href="https://wa.me/5511983682443?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20projeto%20de%20eletroposto." target="_blank" rel="noopener"><span class="wa-mark"><svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.04 3C8.86 3 3.02 8.82 3.02 15.98c0 2.29.6 4.53 1.74 6.5L3 29l6.7-1.75a13.02 13.02 0 0 0 6.33 1.61h.01c7.18 0 13.02-5.82 13.02-12.98C29.06 8.82 23.22 3 16.04 3Zm0 23.67h-.01a10.82 10.82 0 0 1-5.52-1.51l-.4-.24-3.98 1.04 1.06-3.87-.26-.4a10.73 10.73 0 0 1-1.66-5.71c0-5.96 4.86-10.8 10.83-10.8 5.97 0 10.82 4.84 10.82 10.8 0 5.95-4.86 10.79-10.88 10.79Zm5.94-8.08c-.33-.16-1.93-.95-2.23-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.24-.71.08-.33-.16-1.38-.51-2.63-1.62a9.82 9.82 0 0 1-1.82-2.26c-.19-.33-.02-.5.14-.67.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.79-1.01-2.45-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.15 1.12-1.15 2.73s1.18 3.17 1.34 3.39c.16.22 2.32 3.54 5.62 4.97.79.34 1.4.54 1.88.69.79.25 1.5.22 2.07.13.63-.09 1.93-.79 2.2-1.55.27-.76.27-1.41.19-1.55-.08-.14-.3-.22-.63-.38Z"/></svg></span><div><strong>(11) 98368-2443</strong><small>Fale agora pelo WhatsApp</small></div></a>
             <a class="contact-card email" href="mailto:contato@recargapremium.com"><span>✉</span><div><strong>contato@recargapremium.com</strong><small>Envie um e-mail</small></div></a>
           </div>
-          <button class="project-open" type="button" id="open-form">Solicitar um Projeto <span>→</span></button>
+          <button class="project-open" type="button" id="open-form" aria-expanded="false" aria-controls="form-wrap">Prefiro enviar os detalhes do projeto <span>→</span></button>
         </div>
       </div>
       <div class="container form-wrap" id="form-wrap" hidden>
@@ -283,7 +273,7 @@ section[id]{scroll-margin-top:112px}#quem-somos{scroll-margin-top:112px}#contato
   <footer class="site-footer">
     <div class="container footer-main">
       <a class="footer-logo" href="#topo"><img src="logo-recarga-premium.webp" width="720" height="240" loading="lazy" alt="Recarga Premium — Soluções em Eletromobilidade"></a>
-      <nav class="footer-nav" aria-label="Navegação do rodapé"><a href="#inicio">Início</a><a href="#solucoes">Soluções</a><a href="#projetos">Projetos</a><a href="#carregadores">Carregadores</a><a href="#contato">Contato</a></nav>
+      <nav class="footer-nav" aria-label="Navegação do rodapé"><a href="#inicio">Início</a><a href="#solucoes">Soluções</a><a href="#projetos">Aplicações</a><a href="#carregadores">Carregadores</a><a href="#contato">Contato</a></nav>
       <div class="social-links"><a href="https://instagram.com/recargapremiumoficial" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ig-icon" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a><a href="mailto:contato@recargapremium.com" aria-label="E-mail">✉</a><a href="https://wa.me/5511983682443" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.04 3C8.86 3 3.02 8.82 3.02 15.98c0 2.29.6 4.53 1.74 6.5L3 29l6.7-1.75a13.02 13.02 0 0 0 6.33 1.61h.01c7.18 0 13.02-5.82 13.02-12.98C29.06 8.82 23.22 3 16.04 3Zm0 23.67h-.01a10.82 10.82 0 0 1-5.52-1.51l-.4-.24-3.98 1.04 1.06-3.87-.26-.4a10.73 10.73 0 0 1-1.66-5.71c0-5.96 4.86-10.8 10.83-10.8 5.97 0 10.82 4.84 10.82 10.8 0 5.95-4.86 10.79-10.88 10.79Zm5.94-8.08c-.33-.16-1.93-.95-2.23-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.24-.71.08-.33-.16-1.38-.51-2.63-1.62a9.82 9.82 0 0 1-1.82-2.26c-.19-.33-.02-.5.14-.67.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.79-1.01-2.45-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.15 1.12-1.15 2.73s1.18 3.17 1.34 3.39c.16.22 2.32 3.54 5.62 4.97.79.34 1.4.54 1.88.69.79.25 1.5.22 2.07.13.63-.09 1.93-.79 2.2-1.55.27-.76.27-1.41.19-1.55-.08-.14-.3-.22-.63-.38Z"/></svg></a></div>
     </div>
     <div class="container footer-bottom"><span>© <span id="year"></span> Recarga Premium. Todos os direitos reservados. · <a href="#privacidade">Privacidade</a></span><span>Mobilidade hoje. Um futuro melhor amanhã.</span></div>
@@ -310,7 +300,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.conta
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const formWrap=document.getElementById('form-wrap'),openForm=document.getElementById('open-form');
-openForm.addEventListener('click',()=>{formWrap.hidden=!formWrap.hidden;if(!formWrap.hidden){formWrap.scrollIntoView({behavior:'smooth',block:'nearest'});document.getElementById('nome').focus({preventScroll:true})}});
+openForm.addEventListener('click',()=>{formWrap.hidden=!formWrap.hidden;openForm.setAttribute('aria-expanded',String(!formWrap.hidden));if(!formWrap.hidden){formWrap.scrollIntoView({behavior:'smooth',block:'nearest'});document.getElementById('nome').focus({preventScroll:true})}});
 const cepInput=document.getElementById('cep'),ruaInput=document.getElementById('rua'),bairroInput=document.getElementById('bairro'),cidadeInput=document.getElementById('cidade'),estadoInput=document.getElementById('estado'),enderecoResumo=document.getElementById('endereco-resumo'),enderecoManual=document.getElementById('endereco-manual'),toggleManualBtn=document.getElementById('toggle-manual');
 function mostrarManual(foco){
   enderecoResumo.hidden=true;
