@@ -10,7 +10,7 @@ AWS IAM → Identity providers → Add provider → OpenID Connect:
 
 ## 2. Criar role para o GitHub Actions
 
-No IAM, crie uma role com Web identity para o GitHub Actions, com trust policy semelhante à seguinte (substitua **ACCOUNT_ID**):
+No IAM, crie uma role com Web identity para o GitHub Actions, com a trust policy específica para esta conta (arquivo [aws-oidc-trust-policy.json](./aws-oidc-trust-policy.json)):
 
 ```json
 {
@@ -19,7 +19,7 @@ No IAM, crie uma role com Web identity para o GitHub Actions, com trust policy s
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+        "Federated": "arn:aws:iam::316356488279:oidc-provider/token.actions.githubusercontent.com"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
@@ -37,7 +37,7 @@ No IAM, crie uma role com Web identity para o GitHub Actions, com trust policy s
 
 ## 3. Permissões mínimas de publicação
 
-Anexe à role esta policy, substituindo **ACCOUNT_ID** e **DISTRIBUTION_ID**:
+Anexe à role esta policy de menor privilégio (arquivo [aws-deploy-permissions.json](./aws-deploy-permissions.json)):
 
 ```json
 {
@@ -57,7 +57,7 @@ Anexe à role esta policy, substituindo **ACCOUNT_ID** e **DISTRIBUTION_ID**:
       "Sid": "InvalidateCloudFront",
       "Effect": "Allow",
       "Action": ["cloudfront:CreateInvalidation"],
-      "Resource": "arn:aws:cloudfront::ACCOUNT_ID:distribution/DISTRIBUTION_ID"
+      "Resource": "arn:aws:cloudfront::316356488279:distribution/E14L95QZL3U5IN"
     }
   ]
 }
@@ -73,13 +73,37 @@ Em **Settings → Secrets and variables → Actions → Variables** (ou environm
 
 | Nome | Valor |
 | --- | --- |
-| `AWS_ROLE_ARN` | ARN da role criada, ex.: `arn:aws:iam::ACCOUNT_ID:role/RecargaPremiumGithubDeploy` |
-| `AWS_REGION` | Região **real** do bucket S3 (ex.: `us-east-1`) |
-| `CLOUDFRONT_DISTRIBUTION_ID` | ID **real** da distribuição do domínio recargapremium.com |
+| `AWS_ROLE_ARN` | ARN da role criada, ex.: `arn:aws:iam::316356488279:role/RecargaPremiumGithubDeploy` |
+| `AWS_REGION` | `us-east-1` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | `E14L95QZL3U5IN` |
 
 O nome do bucket está fixado no workflow como `recargapremium-site`. Não são necessárias AWS Access Keys em Secrets.
 
 **Nunca** salve Access Key ID, Secret Access Key ou credenciais AWS no repositório.
+
+## Dados confirmados do projeto
+
+- AWS Account ID: `316356488279`
+- S3 Bucket: `recargapremium-site`
+- Região S3: `us-east-1`
+- CloudFront Distribution ID: `E14L95QZL3U5IN`
+- Role proposta: `RecargaPremiumGithubDeploy`
+
+> Os identificadores foram informados pelo proprietário. Ainda é necessário confirmar que o bucket e a distribuição pertencem à conta e estão associados ao domínio correto na AWS.
+
+## Configuração via AWS CLI (alternativa ao Console)
+
+Execute os comandos abaixo **somente com um perfil AWS administrativo autorizado**, após revisar os dois arquivos JSON e configurar o provedor OIDC na conta. Baixe o repositório localmente antes da execução.
+
+```bash
+aws sts get-caller-identity
+aws iam get-open-id-connect-provider --open-id-connect-provider-arn arn:aws:iam::316356488279:oidc-provider/token.actions.githubusercontent.com
+aws iam create-role --role-name RecargaPremiumGithubDeploy --assume-role-policy-document file://docs/aws-oidc-trust-policy.json
+aws iam put-role-policy --role-name RecargaPremiumGithubDeploy --policy-name RecargaPremiumWebsiteDeploy --policy-document file://docs/aws-deploy-permissions.json
+aws iam get-role --role-name RecargaPremiumGithubDeploy --query 'Role.Arn' --output text
+```
+
+Se o OIDC provider não existir, crie-o no Console. Se a role já existir, não execute `create-role`; revise a configuração existente. Os comandos acima **criam IAM**, mas não publicam conteúdo no S3 nem invalidam o CloudFront.
 
 ## 5. Teste e operação
 
