@@ -231,14 +231,15 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
           <div class="heading-copy visual-heading"><figure class="editorial-photo"><img src="img/carregadores-conector.webp" alt="Conector de recarga ligado a veículo elétrico" loading="lazy" decoding="async" width="900" height="600"><figcaption>Imagem ilustrativa · Unsplash / Marek Studzinski</figcaption></figure><p>Mais potência nem sempre significa melhor projeto. Avaliamos veículo, tempo de permanência, demanda e infraestrutura elétrica.</p></div>
         </div>
         <div class="charger-tabs reveal" role="tablist" aria-label="Tipos de carregadores">
-          <button class="tab active" data-tab="ac7" role="tab" aria-selected="true">AC 7,4 kW</button>
-          <button class="tab" data-tab="ac22" role="tab" aria-selected="false">AC 22 kW</button>
-          <button class="tab" data-tab="dc" role="tab" aria-selected="false">DC Rápido</button>
+          <button class="tab active" data-tab="kw22" role="tab" aria-selected="true">22 kW</button>
+          <button class="tab" data-tab="kw30" role="tab" aria-selected="false">30 kW</button>
+          <button class="tab" data-tab="kw60" role="tab" aria-selected="false">60 kW</button>
+          <button class="tab" data-tab="kw80" role="tab" aria-selected="false">80 kW</button>
         </div>
         <div class="charger-panel reveal">
-          <div><span class="panel-badge" id="panel-badge">RECARGA CONVENIENTE</span><h3 id="panel-title">AC 7,4 kW</h3><p id="panel-text">Boa opção para residências, condomínios e locais onde o veículo permanece por várias horas.</p></div>
-          <div class="spec-list"><div><span>Uso típico</span><strong id="panel-use">Residencial / condomínio</strong></div><div><span>Conexão comum</span><strong id="panel-connector">Tipo 2</strong></div><div><span>Perfil</span><strong id="panel-profile">Longa permanência</strong></div></div>
-          <div class="meter-ring"><strong id="meter-value">7.4</strong><span>kW</span></div>
+          <div><span class="panel-badge" id="panel-badge">OPÇÃO DE POTÊNCIA</span><h3 id="panel-title">22 kW</h3><p id="panel-text">A potência indicada depende do perfil de público a ser atendido e é definida após a viabilidade técnica.</p></div>
+          <div class="spec-list"><div><span>Público atendido</span><strong id="panel-use">Conforme o perfil do local</strong></div><div><span>Definição da potência</span><strong id="panel-profile">Após a viabilidade técnica</strong></div></div>
+          <div class="meter-ring"><strong id="meter-value">22</strong><span>kW</span></div>
         </div>
         <p class="technical-note">Potência efetiva depende do veículo, do carregador, da rede e das condições da instalação.</p>
       </div>
@@ -343,15 +344,16 @@ section[id],#quem-somos,#contato{scroll-margin-top:104px}
   <a class="whatsapp-float" href="https://wa.me/5511983682443?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20um%20projeto%20de%20eletroposto." target="_blank" rel="noopener" aria-label="Falar com a Recarga Premium pelo WhatsApp"><svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.04 3C8.86 3 3.02 8.82 3.02 15.98c0 2.29.6 4.53 1.74 6.5L3 29l6.7-1.75a13.02 13.02 0 0 0 6.33 1.61h.01c7.18 0 13.02-5.82 13.02-12.98C29.06 8.82 23.22 3 16.04 3Zm0 23.67h-.01a10.82 10.82 0 0 1-5.52-1.51l-.4-.24-3.98 1.04 1.06-3.87-.26-.4a10.73 10.73 0 0 1-1.66-5.71c0-5.96 4.86-10.8 10.83-10.8 5.97 0 10.82 4.84 10.82 10.8 0 5.95-4.86 10.79-10.88 10.79Zm5.94-8.08c-.33-.16-1.93-.95-2.23-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.24-.71.08-.33-.16-1.38-.51-2.63-1.62a9.82 9.82 0 0 1-1.82-2.26c-.19-.33-.02-.5.14-.67.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.79-1.01-2.45-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.15 1.12-1.15 2.73s1.18 3.17 1.34 3.39c.16.22 2.32 3.54 5.62 4.97.79.34 1.4.54 1.88.69.79.25 1.5.22 2.07.13.63-.09 1.93-.79 2.2-1.55.27-.76.27-1.41.19-1.55-.08-.14-.3-.22-.63-.38Z"/></svg></a>
   <script>
 const tabs = {
-  ac7:{badge:'RECARGA CONVENIENTE',title:'AC 7,4 kW',text:'Boa opção para residências, condomínios e locais onde o veículo permanece por várias horas.',use:'Residencial / condomínio',connector:'Tipo 2',profile:'Longa permanência',value:'7.4'},
-  ac22:{badge:'MAIS POTÊNCIA EM AC',title:'AC 22 kW',text:'Indicado para locais com infraestrutura trifásica adequada e veículos compatíveis com potências maiores em corrente alternada.',use:'Condomínio / empresa',connector:'Tipo 2',profile:'Permanência média',value:'22'},
-  dc:{badge:'RECARGA RÁPIDA',title:'DC Rápido',text:'Solução para alta rotatividade, eletropostos, rotas e frotas que precisam reduzir o tempo de recarga.',use:'Posto / frota / rota',connector:'CCS2*',profile:'Alta rotatividade',value:'60+'}
+  kw22:{badge:'OPÇÃO DE POTÊNCIA',text:'A potência indicada depende do perfil de público a ser atendido e é definida após a viabilidade técnica.',use:'Conforme o perfil do local',profile:'Após a viabilidade técnica',title:'22 kW',value:'22'},
+  kw30:{badge:'OPÇÃO DE POTÊNCIA',text:'A potência indicada depende do perfil de público a ser atendido e é definida após a viabilidade técnica.',use:'Conforme o perfil do local',profile:'Após a viabilidade técnica',title:'30 kW',value:'30'},
+  kw60:{badge:'OPÇÃO DE POTÊNCIA',text:'A potência indicada depende do perfil de público a ser atendido e é definida após a viabilidade técnica.',use:'Conforme o perfil do local',profile:'Após a viabilidade técnica',title:'60 kW',value:'60'},
+  kw80:{badge:'OPÇÃO DE POTÊNCIA',text:'A potência indicada depende do perfil de público a ser atendido e é definida após a viabilidade técnica.',use:'Conforme o perfil do local',profile:'Após a viabilidade técnica',title:'80 kW',value:'80'}
 };
 document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
   btn.classList.add('active');btn.setAttribute('aria-selected','true');
   const d=tabs[btn.dataset.tab];
-  ['badge','title','text','use','connector','profile'].forEach(k=>document.getElementById('panel-'+k).textContent=d[k]);
+  ['badge','title','text','use','profile'].forEach(k=>document.getElementById('panel-'+k).textContent=d[k]);
   document.getElementById('meter-value').textContent=d.value;
 }));
 const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav');
